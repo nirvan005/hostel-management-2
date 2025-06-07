@@ -1,0 +1,229 @@
+body,
+html {
+  overflow-x: hidden;
+}
+.headApp {
+  background-color: #202020;
+  position: fixed;
+  width: 100%;
+  height: 6rem;
+  z-index: 1000;
+}
+.h-btn,
+.h-btn2,
+.h-btn3 {
+  border-radius: 50%;
+  border: none;
+  background-color: #2f2f2f;
+  color: white;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  margin-right: 1rem;
+  height: 2.9rem;
+  width: 2.9rem;
+  font-size: larger;
+}
+.h-btn2 {
+  color: #ffe605;
+}
+.h-btn3 {
+}
+.sidebar {
+  position: fixed;
+  border-radius: 1%;
+  left: 0;
+  top: 6rem;
+  color: #b0b0b0;
+  background-color: #202020;
+  height: 95%;
+  width: auto;
+  padding: 0.7rem;
+}
+.sidebar-btn {
+  display: flex;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  font-size: larger;
+  align-items: center;
+  gap: 1rem;
+  color: #b0b0b0;
+  text-decoration: none;
+}
+.sidebar-btn-sub {
+  padding: 5px;
+}
+body {
+  background-color: #000000;
+}
+.student-card {
+  background-color: #1e1e1e;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+.student-data {
+  width: 75%;
+}
+.r-no {
+  display: flex;
+  justify-self: start;
+}
+.f-no {
+  display: flex;
+  justify-self: end;
+}
+.f-no,
+.r-no {
+  font-size: large;
+  margin: 0 1rem 0 1rem;
+}
+.find-student {
+  margin: 10rem 0rem 0rem 1.5rem;
+}
+.search-btn {
+  margin-top: 10rem;
+}
+.more-info-box {
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 1s ease-out, opacity 0.5s ease-out;
+}
+
+.more-info-box.expanded {
+  opacity: 1;
+}
+.floor {
+  color: white;
+  text-align: center;
+  margin: 4rem 0 0 13rem;
+  padding: 1rem;
+}
+.floor-head {
+  border-bottom: 1px solid #2f2f2f;
+}
+.floor-each {
+  border-radius: 0.5rem;
+}
+.rooms-content {
+  text-align: start;
+  margin: 0 2rem 0 2rem;
+}
+.room-each {
+  margin-right: 15rem;
+  cursor: pointer;
+}
+.activeLink {
+  background-color: #2e2e2e;
+  color: white;
+}
+.search-room {
+  margin-left: 12rem;
+}
+.welcome-block {
+  margin-left: 20rem;
+  padding-top: 10rem;
+  text-align: center;
+}
+.welcome-heading {
+  color: white;
+}
+.welcome-content {
+  color: white;
+  padding-top: 5rem;
+  font-size: x-large;
+}
+
+.add-student-btn,
+.remove-student-btn {
+  /* position: fixed; */
+  margin-left: 3rem;
+  margin-top: 5.5rem;
+  /* margin-bottom: -8rem; */
+  height: 4rem;
+  width: 10rem;
+  cursor: pointer;
+}
+.remove-student-btn {
+  margin-top: 5.5rem;
+  margin-left: 46rem;
+}
+
+.add-student-header {
+  margin: 5rem 0 0 10rem;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+.add-student-form {
+  margin: 0 0 0 11rem;
+  color: white;
+}
+.added,
+.not-added {
+  margin-top: 0.5rem;
+  margin-left: 11rem;
+  background-color: #1a1a1a;
+  color: #00ff00;
+}
+.not-added {
+  margin-top: 0.3rem;
+  color: rgb(219, 40, 40);
+}
+.assign-room-body,
+.change-room-body {
+  margin-left: 15rem;
+  padding-top: 8rem;
+}
+.assign-room-heading,
+.change-room-heading {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+.assign-fields {
+  color: white;
+}
+
+.payments-page {
+  padding-top: 9rem;
+}
+.payments-heading,
+.payments-table {
+  margin-left: 8rem;
+}
+
+.payments-update {
+  margin-left: 8rem;
+}
+
+.remove-student-dropdown {
+  margin-left: 11rem;
+}
+
+.collapse-bar {
+  margin: 3rem 0 0 1rem;
+  color: white;
+  z-index: 1000;
+  position: fixed;
+  background-color: #202020;
+  font-size: 2rem;
+}
+
+.sidebar.collapsed {
+  display: none;
+}
+
+.collapse-margin,
+.normal-margin {
+  position: relative;
+  z-index: 10;
+}
+.normal-margin {
+  transform: translateX(12rem);
+}
+.collapse-margin {
+  transform: translateX(-8rem);
+  transition: transform 0.3s ease;
+}
