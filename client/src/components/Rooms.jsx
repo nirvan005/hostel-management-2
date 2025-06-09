@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 const Rooms = ({ rooms }) => {
   const navigate = useNavigate();
   const goToRoom = (room_no) => {
-    navigate(`/student/${room_no}`);
+    navigate(`/home-admin/student/${room_no}`);
   };
   const handleClick = (e) => {
     const room_no = e.target.textContent;

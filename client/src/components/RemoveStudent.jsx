@@ -5,12 +5,12 @@ function RemoveStudent() {
   const [formData, setFormData] = useState({
     end_date: "",
   });
-  const [unassigned, setUnassigned] = useState([]);
+  const [assigned, setAssigned] = useState([]);
   const [selectedId, setSelectedId] = useState("");
   useEffect(() => {
     axios
       .get("http://localhost:4000/assigned-students")
-      .then((res) => setUnassigned(res.data))
+      .then((res) => setAssigned(res.data))
       .catch((err) => console.error(err));
     setAdded(0);
   }, []);
@@ -23,6 +23,7 @@ function RemoveStudent() {
       [e.target.name]: e.target.value,
     });
   };
+  console.log(assigned);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,7 +37,7 @@ function RemoveStudent() {
       });
       setTimeout(() => {
         setAdded(0);
-        navigate("/student");
+        navigate("/home-admin/student");
       }, 2000);
     } catch (error) {
       console.error(
@@ -64,7 +65,7 @@ function RemoveStudent() {
         <option value="" className="bg-dark text-white">
           Select a student
         </option>
-        {unassigned.map((user) => (
+        {assigned.map((user) => (
           <option key={user.user_id} value={user.user_id}>
             {user.name} ({user.username})
           </option>

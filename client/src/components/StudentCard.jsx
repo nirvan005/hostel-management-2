@@ -2,7 +2,6 @@ import { useState } from "react";
 
 function StudentCard({ student }) {
   const [expanded, setExpanded] = useState(false);
-
   return (
     <>
       <div

@@ -21,13 +21,13 @@ const client = new MongoClient(process.env.MONGO_URI);
 })();
 
 const db = client.db("hostel_management");
-const Users = db.collection("Users");
-const Rooms = db.collection("Rooms");
-const Student = db.collection("Student");
-const CheckIn_CheckOut = db.collection("CheckIn_CheckOut");
-const Payments = db.collection("Payments");
-const Admin = db.collection("Admin");
-const Request = db.collection("Request");
+const Users = db.collection("users");
+const Rooms = db.collection("rooms");
+const Student = db.collection("student");
+const CheckIn_CheckOut = db.collection("checkIn_CheckOut");
+const Payments = db.collection("payments");
+const Admin = db.collection("admin");
+const Request = db.collection("request");
 // const requests = db.collection("requests"); // Removed unused variable
 app.use(
   cors({
@@ -71,7 +71,7 @@ app.post("/login-admin", async (req, res) => {
     if (!match) return res.status(401).json({ error: "Invalid credentials" });
     res.status(200).json({
       message: "Login successful",
-      userId: user._id,
+      userId: user.user_id,
       name: user.name,
     });
   } catch (err) {
@@ -109,7 +109,7 @@ app.post("/login-student", async (req, res) => {
     if (!match) return res.status(401).json({ error: "Invalid credentials" });
     res.status(200).json({
       message: "Login successful",
-      userId: user._id,
+      userId: user.user_id,
       name: user.name,
     });
   } catch (err) {
@@ -181,7 +181,7 @@ app.get("/student", async (_req, res) => {
         $lookup: {
           from: "users",
           localField: "student_id",
-          foreignField: "_id",
+          foreignField: "user_id",
           as: "user_info",
         },
       },
@@ -190,17 +190,27 @@ app.get("/student", async (_req, res) => {
         $lookup: {
           from: "rooms",
           localField: "room_id",
-          foreignField: "_id",
+          foreignField: "room_id",
           as: "room_info",
         },
       },
       { $unwind: "$room_info" },
       {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: [
+              "$$ROOT", // Original student document
+              "$user_info",
+              "$room_info",
+            ],
+          },
+        },
+      },
+      {
         $project: {
           _id: 0,
-          student_data: "$$ROOT",
-          user_info: 1,
-          room_info: 1,
+          user_info: 0,
+          room_info: 0,
         },
       },
     ]).toArray();
@@ -220,7 +230,7 @@ app.get("/student/:room_no", async (req, res) => {
         $lookup: {
           from: "users",
           localField: "student_id",
-          foreignField: "_id",
+          foreignField: "user_id",
           as: "user_info",
         },
       },
@@ -229,18 +239,24 @@ app.get("/student/:room_no", async (req, res) => {
         $lookup: {
           from: "rooms",
           localField: "room_id",
-          foreignField: "_id",
+          foreignField: "room_id",
           as: "room_info",
         },
       },
       { $unwind: "$room_info" },
       { $match: { "room_info.room_no": roomNo } },
       {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ["$$ROOT", "$user_info", "$room_info"],
+          },
+        },
+      },
+      {
         $project: {
           _id: 0,
-          student_data: "$$ROOT",
-          user_info: 1,
-          room_info: 1,
+          user_info: 0,
+          room_info: 0,
         },
       },
     ]).toArray();
@@ -262,7 +278,7 @@ app.get("/admin", async (req, res) => {
         $lookup: {
           from: "users",
           localField: "admin_id",
-          foreignField: "_id",
+          foreignField: "user_id",
           as: "user",
         },
       },
@@ -280,7 +296,9 @@ app.get("/rooms", async (req, res) => {
       const results = await Rooms.find({}).toArray();
       res.send(results);
     } else {
-      const results = await Rooms.find({ _id: req.query.room_id }).toArray();
+      const results = await Rooms.find({
+        room_id: req.query.room_id,
+      }).toArray();
       res.send(results);
     }
   } catch (err) {
@@ -331,7 +349,7 @@ app.get("/floors", async (_req, res) => {
           status: "$_id.status",
         },
       },
-      { $sort: { floor_no: 1 } },
+      { $sort: { floor_no: 1, room_no: 1 } },
     ]).toArray();
     res.send(results);
   } catch (err) {
@@ -367,7 +385,7 @@ app.get("/unassigned-students", async (_req, res) => {
         $lookup: {
           from: "users",
           localField: "user_id",
-          foreignField: "_id",
+          foreignField: "user_id",
           as: "user",
         },
       },
@@ -391,8 +409,9 @@ app.get("/assigned-students", async (_req, res) => {
   try {
     const students = await Student.find({ end_date: null }).toArray();
     const userIds = students.map((s) => s.student_id);
+    console.log("User IDs:", userIds);
     const results = await Users.find(
-      { _id: { $in: userIds } },
+      { user_id: { $in: userIds } },
       { projection: { user_id: 1, name: 1, username: 1 } }
     ).toArray();
     res.json(results);
@@ -429,7 +448,7 @@ app.post("/assign-room", async (req, res) => {
       mothers_name,
       allocation_id: nextId,
       parent_phone,
-      room_id: room._id,
+      room_id: room.room_id,
       start_date,
       end_date,
     });
@@ -445,7 +464,10 @@ app.post("/change-room", async (req, res) => {
     const room = await Rooms.findOne({ room_no: room_no });
     if (!room) return res.status(404).send("Room not found");
 
-    await Student.updateOne({ student_id }, { $set: { room_id: room._id } });
+    await Student.updateOne(
+      { student_id },
+      { $set: { room_id: room.room_id } }
+    );
     res.send("Student assigned new room successfully");
   } catch (err) {
     res.status(500).send("Error updating room");
@@ -470,7 +492,7 @@ app.get("/payments", async (_req, res) => {
         $lookup: {
           from: "users",
           localField: "student.student_id",
-          foreignField: "_id",
+          foreignField: "user_id",
           as: "user",
         },
       },
@@ -479,7 +501,7 @@ app.get("/payments", async (_req, res) => {
         $lookup: {
           from: "rooms",
           localField: "student.room_id",
-          foreignField: "_id",
+          foreignField: "room_id",
           as: "room",
         },
       },
@@ -520,7 +542,7 @@ app.get("/payments/pending", async (_req, res) => {
         $lookup: {
           from: "users",
           localField: "student.student_id",
-          foreignField: "_id",
+          foreignField: "user_id",
           as: "user",
         },
       },
@@ -529,7 +551,7 @@ app.get("/payments/pending", async (_req, res) => {
         $lookup: {
           from: "rooms",
           localField: "student.room_id",
-          foreignField: "_id",
+          foreignField: "room_id",
           as: "room",
         },
       },
@@ -574,7 +596,7 @@ app.post("/CheckOuts", async (req, res) => {
         $lookup: {
           from: "rooms",
           localField: "room_id",
-          foreignField: "_id",
+          foreignField: "room_id",
           as: "room",
         },
       },
@@ -583,7 +605,7 @@ app.post("/CheckOuts", async (req, res) => {
         $lookup: {
           from: "users",
           localField: "student_id",
-          foreignField: "_id",
+          foreignField: "user_id",
           as: "user",
         },
       },

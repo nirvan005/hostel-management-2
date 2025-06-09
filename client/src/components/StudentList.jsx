@@ -45,13 +45,16 @@ export default function StudentList() {
       className={`${collapse ? "collapse-margin" : "normal-margin"}`}
     >
       <div className={`add-delete`}>
-        <NavLink to={"/home/student/add-student"} className={"add-student"}>
+        {/* <NavLink
+          to={"/home-admin/student/add-student"}
+          className={"add-student"}
+        >
           <button className="btn btn-success add-student-btn">
             Add New Student
           </button>
-        </NavLink>
+        </NavLink> */}
         <NavLink
-          to={"/home/student/remove-student"}
+          to={"/home-admin/student/remove-student"}
           className={"remove-student"}
         >
           <button className="btn btn-danger remove-student-btn">
