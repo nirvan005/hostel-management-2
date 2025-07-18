@@ -409,7 +409,6 @@ app.get("/assigned-students", async (_req, res) => {
   try {
     const students = await Student.find({ end_date: null }).toArray();
     const userIds = students.map((s) => s.student_id);
-    console.log("User IDs:", userIds);
     const results = await Users.find(
       { user_id: { $in: userIds } },
       { projection: { user_id: 1, name: 1, username: 1 } }
