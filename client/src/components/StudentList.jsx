@@ -44,15 +44,15 @@ export default function StudentList() {
       style={{ padding: "20px", width: "100%" }}
       className={`${collapse ? "collapse-margin" : "normal-margin"}`}
     >
-      <div className={`add-delete`}>
-        {/* <NavLink
+      {/* <div className={`add-delete`}>
+        <NavLink
           to={"/home-admin/student/add-student"}
           className={"add-student"}
         >
           <button className="btn btn-success add-student-btn">
             Add New Student
           </button>
-        </NavLink> */}
+        </NavLink>
         <NavLink
           to={"/home-admin/student/remove-student"}
           className={"remove-student"}
@@ -61,7 +61,7 @@ export default function StudentList() {
             Remove Student
           </button>
         </NavLink>
-      </div>
+      </div> */}
       <div className="input-group search-bar align-items-stretch w-75">
         <input
           onChange={handleChange}
