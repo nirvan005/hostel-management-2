@@ -6,7 +6,7 @@ function Welcome() {
           Welcome to The Hostel Management Portal
         </h1>
         <p className="welcome-content">
-          Use the menu to view students, rooms, and more!
+          Use the menu to navigate through the various sections of the portal.
         </p>
       </div>
     </>

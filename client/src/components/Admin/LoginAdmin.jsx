@@ -11,7 +11,7 @@ import LoginPage, {
   Render,
 } from "@react-login-page/page8";
 import LoginLogo from "react-login-page/logo";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../auth/AuthContext";
 import { useNavigate } from "react-router";
 import axios from "axios";
 

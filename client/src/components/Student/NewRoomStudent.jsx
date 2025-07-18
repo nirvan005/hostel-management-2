@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { useAuth } from "../auth/AuthContext";
-function ChangeRoomStudent() {
+import { useAuth } from "../../auth/AuthContext";
+function NewRoomStudent() {
   const { user_id } = useAuth();
-  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     user_id: user_id,
+    address: "",
+    fathers_name: "",
+    mothers_name: "",
+    parent_phone: "",
     preferred_room: "",
   });
   useEffect(() => {
@@ -27,17 +30,20 @@ function ChangeRoomStudent() {
       const api = axios.create({
         baseURL: "http://localhost:4000",
       });
-      await api.post("/change-room-request", formData);
+      await api.post("/room-request", formData);
       setAdded(1);
       setFormData({
         user_id: user_id,
+        address: "",
+        fathers_name: "",
+        mothers_name: "",
+        parent_phone: "",
         preferred_room: "",
       });
       setTimeout(() => {
         setAdded(0);
       }, 2000);
     } catch (error) {
-      setMessage(error.response.data);
       console.error(
         "Error adding student:",
         error.response?.data || error.message
@@ -52,41 +58,44 @@ function ChangeRoomStudent() {
   return (
     <div className="p-4 ms-5 max-w-md mx-auto">
       <h2 className="text-xl font-semibold mb-4  add-student-header">
-        Apply for Changing Room
+        Apply for a New Room
       </h2>
       <form
         onSubmit={handleSubmit}
         className="p-4 border rounded shadow w-75 add-student-form"
       >
-        {[{ label: "Preferred Room ", name: "preferred_room" }].map(
-          ({ label, name }) => (
-            <div className="mb-3" key={name}>
-              <label htmlFor={name} className="form-label fw-semibold">
-                {label}
-              </label>
-              <input
-                type={name === "password" ? "password" : "text"}
-                name={name}
-                id={name}
-                value={formData[name]}
-                onChange={handleChange}
-                className="form-control bg-dark text-white"
-                required
-                placeholder={`Enter ${label}`}
-              />
-            </div>
-          )
-        )}
+        {[
+          { label: "Address", name: "address" },
+          { label: "Father's Name", name: "fathers_name" },
+          { label: "Mother's Name", name: "mothers_name" },
+          { label: "Parent Phone", name: "parent_phone" },
+          { label: "Preferred Room ", name: "preferred_room" },
+        ].map(({ label, name }) => (
+          <div className="mb-3" key={name}>
+            <label htmlFor={name} className="form-label fw-semibold">
+              {label}
+            </label>
+            <input
+              type={name === "password" ? "password" : "text"}
+              name={name}
+              id={name}
+              value={formData[name]}
+              onChange={handleChange}
+              className="form-control bg-dark text-white"
+              required
+              placeholder={`Enter ${label}`}
+            />
+          </div>
+        ))}
 
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>
       {added == 1 && <h3 className="added">✅Request Submitted!!</h3>}
-      {added == 2 && <h3 className="not-added">❌{message}!</h3>}
+      {added == 2 && <h3 className="not-added">❌Couldn't Submit Request!!</h3>}
     </div>
   );
 }
 
-export default ChangeRoomStudent;
-// import
+export default NewRoomStudent;

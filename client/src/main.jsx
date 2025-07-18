@@ -4,23 +4,23 @@ import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import StudentList from "./components/StudentList.jsx";
-import FloorsList from "./components/FloorsList.jsx";
-import Room from "./components/Room.jsx";
+import InitialPage from "./pages/InitialPage.jsx";
+import InitialLayoutAdmin from "./pages/InitialLayoutAdmin.jsx";
+import StudentList from "./components/Admin/StudentList.jsx";
+import Assign from "./components/Admin/Assign.jsx";
+import ChangeRoom from "./components/Admin/ChangeRoom.jsx";
+import LoginAdmin from "./components/Admin/LoginAdmin.jsx";
+import LoginStudent from "./components/Student/LoginStudent.jsx";
 import Welcome from "./components/Welcome.jsx";
+import FloorsList from "./components/Admin/FloorsList.jsx";
+import Room from "./components/Admin/Room.jsx";
 import AddStudent from "./components/AddStudent.jsx";
-import Assign from "./components/Assign.jsx";
-import ChangeRoom from "./components/ChangeRoom.jsx";
-import Payments from "./components/Payments.jsx";
-import CheckOuts from "./components/CheckOuts.jsx";
 import RemoveStudent from "./components/RemoveStudent.jsx";
-import InitialPage from "./components/InitialPage.jsx";
-import LoginAdmin from "./components/LoginAdmin.jsx";
-import InitialLayoutAdmin from "./components/InitialLayoutAdmin.jsx";
-import LoginStudent from "./components/LoginStudent.jsx";
-import InitialLayoutStudent from "./components/InitialLayoutStudent.jsx";
-import NewRoomStudent from "./components/NewRoomStudent.jsx";
-import ChangeRoomStudent from "./components/ChangeRoomStudent.jsx";
+import Payments from "./components/Admin/Payments.jsx";
+import CheckOuts from "./components/Admin/CheckOuts.jsx";
+import InitialLayoutStudent from "./pages/InitialLayoutStudent.jsx";
+import NewRoomStudent from "./components/Student/NewRoomStudent.jsx";
+import ChangeRoomStudent from "./components/Student/ChangeRoomStudent.jsx";
 const router = createBrowserRouter([
   {
     path: "/",

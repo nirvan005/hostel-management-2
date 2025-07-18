@@ -1,10 +1,10 @@
 import { Outlet, useNavigate } from "react-router";
-import HeaderApp from "./HeaderApp";
+import HeaderApp from "../components/HeaderApp";
 import { useAuth } from "../auth/AuthContext";
 import { useEffect } from "react";
-import SidebarStudent from "./Sidebar-Student";
+import Sidebar from "../components/Admin/Sidebar";
 
-const InitialLayoutStudent = () => {
+const InitialLayoutAdmin = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
@@ -18,10 +18,10 @@ const InitialLayoutStudent = () => {
   return (
     <div style={{ backgroundColor: "#000000", minHeight: "100vh" }}>
       <HeaderApp />
-      <SidebarStudent />
+      <Sidebar />
       <Outlet />
     </div>
   );
 };
 
-export default InitialLayoutStudent;
+export default InitialLayoutAdmin;
