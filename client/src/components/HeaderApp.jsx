@@ -24,13 +24,16 @@ function HeaderApp() {
               />
             </a>
           </div>
+          <div className="text-center" style={{ display: "flex" }}>
+            <h1 className="text-white">Hostel Management System</h1>
+          </div>
           <div className="text-end" style={{ display: "flex" }}>
-            <button type="button" className="h-btn">
+            {/* <button type="button" className="h-btn">
               <MdDateRange />
             </button>
             <button type="button" className="h-btn2">
               <FaBell />
-            </button>
+            </button> */}
             <AccountMenu />
           </div>
         </div>
