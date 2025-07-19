@@ -50,7 +50,7 @@ function SidebarStudent() {
           </div>
         </div>
 
-        <NavLink
+        {/* <NavLink
           to={"/home-student/Payments"}
           state={collapse}
           data-name="Payments"
@@ -61,19 +61,7 @@ function SidebarStudent() {
         >
           <MdOutlinePayments />
           Payments
-        </NavLink>
-        <NavLink
-          to={"/home-student/CheckOuts"}
-          state={collapse}
-          data-name="CheckOuts"
-          onClick={handleClick}
-          className={({ isActive }) =>
-            `sidebar-btn mb-3 checkouts ${isActive ? "activeLink" : ""}`
-          }
-        >
-          <IoBagCheckOutline />
-          CheckOuts
-        </NavLink>
+        </NavLink> */}
       </div>
     </>
   );

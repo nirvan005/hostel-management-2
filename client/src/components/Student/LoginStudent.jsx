@@ -63,7 +63,7 @@ const LoginStudent = () => {
       const api = axios.create({
         baseURL: "http://localhost:4000",
       });
-      const response = await api.post("/signup-student", {
+      const response = await api.post("/auth/signup-student", {
         username,
         password,
         email,
@@ -73,6 +73,8 @@ const LoginStudent = () => {
       if (response.status === 201) {
         console.log("Signup successful for student:", username, password);
         navigate("/login-student");
+      } else {
+        alert("Signup failed. Please try again.");
       }
     }
   };
@@ -85,7 +87,7 @@ const LoginStudent = () => {
       baseURL: "http://localhost:4000",
     });
     try {
-      const response = await api.post("/login-student", {
+      const response = await api.post("/auth/login-student", {
         username,
         password,
       });
@@ -103,6 +105,7 @@ const LoginStudent = () => {
           setInvalid(false);
         }, 5000);
       }
+      alert("Invalid username or password. Please try again.");
       // console.error("Login failed:", error);
     }
   };

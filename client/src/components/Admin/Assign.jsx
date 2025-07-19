@@ -14,7 +14,7 @@ export default function Assign() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:4000/unassigned-students")
+      .get("http://localhost:4000/student/unassigned-students")
       .then((res) => setUnassigned(res.data))
       .catch((err) => console.error(err));
     setAdded(0);
@@ -24,7 +24,7 @@ export default function Assign() {
     e.preventDefault();
     try {
       const body = { ...formData, student_id: selectedId };
-      await axios.post("http://localhost:4000/assign-room", body);
+      await axios.post("http://localhost:4000/room/assign-room", body);
       console.log(body);
       setAdded(1);
       setTimeout(() => {

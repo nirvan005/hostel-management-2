@@ -15,17 +15,15 @@ function Payments() {
   }, []);
 
   const fetchData = async () => {
-    const paidRes = await axios.get("http://localhost:4000/payments");
+    const paidRes = await axios.get("http://localhost:4000/payment");
     setRecordsList(paidRes.data);
-    const pendingRes = await axios.get(
-      "http://localhost:4000/payments/pending"
-    );
+    const pendingRes = await axios.get("http://localhost:4000/payment/pending");
     setPendingList(pendingRes.data);
   };
 
   const handleUpdate = async () => {
     try {
-      await axios.post("http://localhost:4000/payments/mark-paid", {
+      await axios.post("http://localhost:4000/payment/mark-paid", {
         student_id: selectedStudent,
       });
       setAdded(1);

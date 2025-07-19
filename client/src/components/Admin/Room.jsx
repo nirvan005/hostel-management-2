@@ -32,7 +32,7 @@ const Room = () => {
       ) : students.length > 0 ? (
         <div className="flex flex-wrap gap-4">
           {students.map((student) => (
-            <StudentCard key={student.student_id} student={student} />
+            <StudentCard key={toString(student.student_id)} student={student} />
           ))}
         </div>
       ) : (

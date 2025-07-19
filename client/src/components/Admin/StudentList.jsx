@@ -27,17 +27,14 @@ export default function StudentList() {
   const handleChange = (e) => {
     const searchValue = e.target.value.trim().toLowerCase();
     if (searchValue === "") setStudents(initial);
-    // else {
-    //   let searchRes = initial.filter((stud) =>
-    //     stud.student_id.toString().includes(searchValue)
-    //   );
-    const searchRes = initial.filter(
-      (stud) =>
-        stud.student_id.toString().includes(searchValue) ||
-        stud.name.toLowerCase().includes(searchValue) // Name search (case-insensitive)
-    );
-    setStudents(searchRes);
-    // }
+    else {
+      const searchRes = initial.filter(
+        (stud) =>
+          stud.name?.toLowerCase().includes(searchValue) ||
+          stud._id?.toString().includes(searchValue)
+      );
+      setStudents(searchRes);
+    }
   };
   return (
     <div
@@ -75,7 +72,7 @@ export default function StudentList() {
       </div>
       <div className="w-100 mt-5">
         {students.map((student) => (
-          <StudentCard key={student.student_id} student={student} />
+          <StudentCard key={toString(student._id)} student={student} />
         ))}
       </div>
     </div>

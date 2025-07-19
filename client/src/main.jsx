@@ -21,6 +21,7 @@ import CheckOuts from "./components/Admin/CheckOuts.jsx";
 import InitialLayoutStudent from "./pages/InitialLayoutStudent.jsx";
 import NewRoomStudent from "./components/Student/NewRoomStudent.jsx";
 import ChangeRoomStudent from "./components/Student/ChangeRoomStudent.jsx";
+import PaymentStudent from "./components/Student/PaymentStudent.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
           { path: "student/:room_no", element: <Room /> },
           { path: "new-room", element: <NewRoomStudent /> },
           { path: "change-room", element: <ChangeRoomStudent /> },
-          { path: "payments", element: <Payments /> },
+          { path: "payments", element: <PaymentStudent /> },
           { path: "CheckOuts", element: <CheckOuts /> },
         ],
       },

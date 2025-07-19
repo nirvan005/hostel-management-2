@@ -12,7 +12,7 @@ export default function ChangeRoom() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:4000/assigned-students")
+      .get("http://localhost:4000/student/assigned-students")
       .then((res) => setUnassigned(res.data))
       .catch((err) => console.error(err));
     setAdded(0);
@@ -22,7 +22,7 @@ export default function ChangeRoom() {
     e.preventDefault();
     try {
       const body = { ...formData, student_id: selectedId };
-      await axios.post("http://localhost:4000/change-room", body);
+      await axios.post("http://localhost:4000/room/change-room", body);
       console.log(body);
       setAdded(1);
       setTimeout(() => {

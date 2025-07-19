@@ -6,8 +6,11 @@ export default function CheckOuts() {
   const [Data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:4000/assigned-students")
-      .then((res) => setAssigned(res.data))
+      .get("http://localhost:4000/student/assigned-students")
+      .then((res) => {
+        setAssigned(res.data);
+        console.log(res.data);
+      })
       .catch((err) => console.error(err));
   }, []);
 
@@ -50,14 +53,15 @@ export default function CheckOuts() {
         onChange={(e) => {
           setData([]);
           setSelectedId(e.target.value);
+          console.log(e.target.value);
           axios
-            .post("http://localhost:4000/CheckOuts", {
-              student_id: e.target.value,
-            })
+            .get(
+              `http://localhost:4000/checkinout?student_id=${e.target.value}`
+            )
             .then((res) => {
               setData(res.data);
             })
-            .catch((err) => console.log("Some error occured"));
+            .catch((err) => console.log("Some error occured", err));
         }}
         required
       >

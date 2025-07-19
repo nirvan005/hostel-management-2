@@ -67,7 +67,7 @@ const LoginAdmin = () => {
       const api = axios.create({
         baseURL: "http://localhost:4000",
       });
-      const response = await api.post("/signup-admin", {
+      const response = await api.post("/auth/signup-admin", {
         username,
         password,
         email,
@@ -78,6 +78,8 @@ const LoginAdmin = () => {
       if (response.status === 201) {
         console.log("Signup successful for admin:", username, password);
         navigate("/login-admin");
+      } else {
+        alert("Invalid admin key or other signup error. Please try again.");
       }
     }
   };
@@ -90,7 +92,7 @@ const LoginAdmin = () => {
       baseURL: "http://localhost:4000",
     });
     try {
-      const response = await api.post("/login-admin", {
+      const response = await api.post("/auth/login-admin", {
         username,
         password,
       });
@@ -107,6 +109,7 @@ const LoginAdmin = () => {
           setInvalid(false);
         }, 5000);
       }
+      alert("Invalid username or password. Please try again.");
       // console.error("Login failed:", error);
     }
   };

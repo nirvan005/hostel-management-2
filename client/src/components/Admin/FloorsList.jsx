@@ -6,7 +6,7 @@ export default function FloorsList() {
   const [floorData, setFloorData] = useState([]);
   const getFloors = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/floors");
+      const response = await axios.get("http://localhost:4000/room/floors");
 
       const groupedData = response.data.reduce(
         (acc, { floor_no, room_no, status }) => {
